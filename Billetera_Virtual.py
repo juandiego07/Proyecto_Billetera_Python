@@ -18,6 +18,7 @@ def ValidarOpcion(opc1):
         return False
 
 """ Procedimiento Menu Principal"""
+
 def MenuBilletera():
     while True:
         print("1.- Recibir cantidad: ")
