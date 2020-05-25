@@ -32,15 +32,6 @@ def ValidarPrecio(a):
             continue
     return 0
 
-""" FUNCION PARA VALIDAR DATOS NUMERICOS O ALFABETICOS """
-def ValidarDato(dato, opc, mens):
-    a = set(dato)
-    b = set(opc)
-    if (b-a) > 0:
-        print('Caracteres Invalidos')
-        return ValidarDato(dato, opc, mens)
-    else:
-        return opc
 
 """ METODO QUE MUESTRA EN PANTALLA EL MENÚ PRINCIPAL DEL SISTEMA """
 def menu1():
@@ -54,10 +45,10 @@ def menu1():
 
 """ METODO QUE GUARDA EN UN ARCHIVO DE TEXTO LA CONSIGNACION RECIBIDA EN CRIPTO MONEDAS """
 def recibircantidad(mensaje):
-    cod = '1194418306'
-    name = ValidarMoneda(input(mensaje))
-    num = float(input('Ingrese la catidad de '+str(name)+' a recibir: '))
-    monto = num * float(ValidarPrecio(name))
+    cod = '1194418306' """CODIGO DEL EMISOR"""
+    name = ValidarMoneda(input(mensaje)) """NOMBRE DE LA MONEDA"""
+    num = float(input('Ingrese la catidad de '+str(name)+' a recibir: ')) """CANTIDAD DE MONEDAS"""
+    monto = num * float(ValidarPrecio(name)) """MONTO EN USD DE LAS MONEDAS"""
     try:
         db = open('db.csv', 'rt')
         for x in db:
@@ -73,21 +64,21 @@ def recibircantidad(mensaje):
         db = open('db.csv', 'at')
         cant = 0
         saldo = 0
-    cant = cant + num
-    saldo = saldo + monto
-    now = datetime.now()
-    date = now.strftime('%d/%m/%Y %H:%M:%S')
-    codrem = input('Ingrese el código del remitente: ')
-    tipo = 'Consignacion'
-    db = open('db.csv', 'at')
-    db.write(cod+';'+str(name)+';'+str(num)+';'+str(cant)+';'+str(monto)+';' + str(saldo)+';'+date+';'+codrem+';'+tipo+'\n')
+    cant = cant + num """SUMATORIA DE MONEDAS RECIBIDAS"""
+    saldo = saldo + monto """SUMATORIA DE MONTO EN USD DE LAS MONEDAS"""
+    now = datetime.now() """REGISTRA FECHA Y HORA DE LA TRANSACCION"""
+    date = now.strftime('%d/%m/%Y %H:%M:%S') """REGISTRA FECHA Y HORA DE LA TRANSACCION"""
+    codrem = input('Ingrese el código del remitente: ') """REGISTRA EL CODIGO DEL REMITENTE"""
+    tipo = 'Consignacion' """REGISTRA EL TIPO DE TRANSACCION"""
+    db = open('db.csv', 'at') """ABRE EL ARCHIVO PARA REGISTRAR EL CAMBIO"""
+    db.write(cod+';'+str(name)+';'+str(num)+';'+str(cant)+';'+str(monto)+';' + str(saldo)+';'+date+';'+codrem+';'+tipo+'\n') """QUE LE """
     db.close
 
 """ METODO QUE GUARDA EN UN ARCHIVO DE TEXTO LA TRANFERENCIA REALIZADA EN CRIPTO MONEDAS """
 def transferirmonto(mensaje):
     cod = '1194418306'
     name = ValidarMoneda(input(mensaje))
-    num = float(input('Ingrese la catidad de '+str(name)+' a transferir: '))
+    num = float(input('Ingrese la cantidad de '+str(name)+' a transferir: '))
     monto = num * float(ValidarPrecio(name))
     try:
         db = open('db.csv', 'rt')
