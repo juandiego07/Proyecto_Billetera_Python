@@ -45,10 +45,10 @@ def menu1():
 
 """ METODO QUE GUARDA EN UN ARCHIVO DE TEXTO LA CONSIGNACION RECIBIDA EN CRIPTO MONEDAS """
 def recibircantidad(mensaje):
-    cod = '1194418306' """CODIGO DEL EMISOR"""
-    name = ValidarMoneda(input(mensaje)) """NOMBRE DE LA MONEDA"""
-    num = float(input('Ingrese la catidad de '+str(name)+' a recibir: ')) """CANTIDAD DE MONEDAS"""
-    monto = num * float(ValidarPrecio(name)) """MONTO EN USD DE LAS MONEDAS"""
+    cod = '1194418306' 
+    name = ValidarMoneda(input(mensaje)) 
+    num = float(input('Ingrese la catidad de '+str(name)+' a recibir: ')) 
+    monto = num * float(ValidarPrecio(name)) 
     try:
         db = open('db.csv', 'rt')
         for x in db:
@@ -64,15 +64,15 @@ def recibircantidad(mensaje):
         db = open('db.csv', 'at')
         cant = 0
         saldo = 0
-    cant = cant + num """SUMATORIA DE MONEDAS RECIBIDAS"""
-    saldo = saldo + monto """SUMATORIA DE MONTO EN USD DE LAS MONEDAS"""
-    now = datetime.now() """REGISTRA FECHA Y HORA DE LA TRANSACCION"""
-    date = now.strftime('%d/%m/%Y %H:%M:%S') """REGISTRA FECHA Y HORA DE LA TRANSACCION"""
-    codrem = input('Ingrese el código del remitente: ') """REGISTRA EL CODIGO DEL REMITENTE"""
-    tipo = 'Consignacion' """REGISTRA EL TIPO DE TRANSACCION"""
-    db = open('db.csv', 'at') """ABRE EL ARCHIVO PARA REGISTRAR EL CAMBIO"""
-    db.write(cod+';'+str(name)+';'+str(num)+';'+str(cant)+';'+str(monto)+';' + str(saldo)+';'+date+';'+codrem+';'+tipo+'\n') """QUE LE """
-    db.close
+    cant = cant + num 
+    saldo = saldo + monto 
+    now = datetime.now() 
+    date = now.strftime('%d/%m/%Y %H:%M:%S') 
+    codrem = input('Ingrese el código del remitente: ') 
+    tipo = 'Consignacion' 
+    db = open('db.csv', 'at') 
+    db.write(cod+';'+str(name)+';'+str(num)+';'+str(cant)+';'+str(monto)+';' + str(saldo)+';'+date+';'+codrem+';'+tipo+'\n') 
+
 
 """ METODO QUE GUARDA EN UN ARCHIVO DE TEXTO LA TRANFERENCIA REALIZADA EN CRIPTO MONEDAS """
 def transferirmonto(mensaje):
@@ -110,9 +110,10 @@ def mostrarbalance(mensaje):
     name = ValidarMoneda(input(mensaje))
     try:
         db = open('db.csv', 'rt')
-        for i in db:
-            a, b, c, d, e, f, g, h = i.rstrip("\\n").split(";")
-            result = '\nDe la moneda '+b+' tiene la cantidad de: ' +c+' y su equivalente en USD es: '+e+'\n'
+        for x in db:
+            a, b, c, d, e, f, g, h, i = x.rstrip("\\n").split(";")
+            if b == name:
+                result = '\nDe la moneda '+b+' tiene la cantidad de: ' +d+' y su equivalente en USD es: '+f+'\n'
         db.close()
     except IOError:
         print('No existe monedas en la billetera')
